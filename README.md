@@ -1,0 +1,1 @@
+# szymon_kurzynski_repo_desktopowe
