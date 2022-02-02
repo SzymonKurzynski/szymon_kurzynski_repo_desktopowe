@@ -4,6 +4,13 @@
  */
 package com.mycompany.projektprogramu;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author szymo
@@ -15,6 +22,7 @@ public class ProjektProgramu extends javax.swing.JFrame {
      */
     public ProjektProgramu() {
         initComponents();
+        f = new File("Szymon_Kurzynski.txt");
     }
 
     /**
@@ -28,19 +36,21 @@ public class ProjektProgramu extends javax.swing.JFrame {
 
         jTextField3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jSlider2 = new javax.swing.JSlider();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLImie = new javax.swing.JLabel();
+        jLNazwisko = new javax.swing.JLabel();
+        jLKlasa = new javax.swing.JLabel();
+        jLPrzedmiot = new javax.swing.JLabel();
+        jLOcena = new javax.swing.JLabel();
+        jImie = new javax.swing.JTextField();
+        jNazwisko = new javax.swing.JTextField();
+        jKlasa = new javax.swing.JComboBox<>();
+        jPrzedmiot = new javax.swing.JComboBox<>();
+        jOcena = new javax.swing.JSlider();
+        jWpisy = new javax.swing.JLabel();
+        jWczytanie = new javax.swing.JButton();
+        jZapisanie = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPole = new javax.swing.JTextArea();
 
         jTextField3.setText("jTextField3");
 
@@ -48,46 +58,60 @@ public class ProjektProgramu extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("Podaj imie :");
+        jLImie.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLImie.setText("Podaj imie :");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Podaj nazwisko :");
+        jLNazwisko.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLNazwisko.setText("Podaj nazwisko :");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Klasa :");
+        jLKlasa.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLKlasa.setText("Klasa :");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Przedmiot :");
+        jLPrzedmiot.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLPrzedmiot.setText("Przedmiot :");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Ocena :");
+        jLOcena.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLOcena.setText("Ocena :");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jImie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jImieActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1Ptn", "2Ptn", "3Ptn", " ", " " }));
+        jKlasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1Ptn", "2Ptn", "3Ptn", " ", " " }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chemia", "Matematyka", "Geografia", "Angielski" }));
+        jPrzedmiot.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chemia", "Matematyka", "Geografia", "Angielski" }));
 
-        jSlider2.setBackground(new java.awt.Color(0, 204, 204));
-        jSlider2.setMajorTickSpacing(1);
-        jSlider2.setMaximum(6);
-        jSlider2.setMinorTickSpacing(1);
-        jSlider2.setPaintLabels(true);
-        jSlider2.setPaintTicks(true);
-        jSlider2.setSnapToTicks(true);
-        jSlider2.setValue(3);
+        jOcena.setBackground(new java.awt.Color(0, 204, 204));
+        jOcena.setMajorTickSpacing(1);
+        jOcena.setMaximum(6);
+        jOcena.setMinorTickSpacing(1);
+        jOcena.setPaintLabels(true);
+        jOcena.setPaintTicks(true);
+        jOcena.setSnapToTicks(true);
+        jOcena.setValue(3);
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("Wszystkie wpisy");
+        jWpisy.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jWpisy.setText("Wszystkie wpisy");
 
-        jButton1.setText("Wczytaj dane");
+        jWczytanie.setText("Wczytaj dane");
+        jWczytanie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jWczytanieActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Zapisz dane");
+        jZapisanie.setText("Zapisz dane");
+        jZapisanie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jZapisanieActionPerformed(evt);
+            }
+        });
+
+        jPole.setColumns(20);
+        jPole.setRows(5);
+        jScrollPane2.setViewportView(jPole);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -96,64 +120,68 @@ public class ProjektProgramu extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLOcena)
+                            .addGap(18, 18, 18)
+                            .addComponent(jOcena, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLImie)
+                                .addComponent(jLNazwisko)
+                                .addComponent(jLKlasa)
+                                .addComponent(jLPrzedmiot))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jNazwisko)
+                                .addComponent(jImie)
+                                .addComponent(jKlasa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPrzedmiot, 0, 128, Short.MAX_VALUE))))
+                    .addComponent(jZapisanie))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, 0, 128, Short.MAX_VALUE))))
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel6)
+                        .addComponent(jWpisy)
                         .addGap(29, 29, 29)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                        .addGap(20, 20, 20))))
+                        .addComponent(jWczytanie, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jButton1))
+                    .addComponent(jLImie)
+                    .addComponent(jImie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jWpisy)
+                    .addComponent(jWczytanie))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLNazwisko)
+                    .addComponent(jNazwisko, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(jLKlasa)
+                    .addComponent(jKlasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLPrzedmiot)
+                    .addComponent(jPrzedmiot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jLabel5))
+                        .addComponent(jLOcena))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jSlider2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                        .addComponent(jOcena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addComponent(jZapisanie)
                 .addGap(32, 32, 32))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(77, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,9 +198,43 @@ public class ProjektProgramu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jImieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jImieActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jImieActionPerformed
+
+    private void jZapisanieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jZapisanieActionPerformed
+        String imie = jImie.getText();
+        String nazwisko = jNazwisko.getText();
+        String klasa = jKlasa.getSelectedItem().toString();
+        String przedmiot = jPrzedmiot.getSelectedItem().toString();
+        String ocena = "" + jOcena.getValue();
+        try {
+        FileWriter fw = new FileWriter(f);
+            fw.write(imie+";");
+            fw.write(nazwisko+";");
+            fw.write(klasa+";");
+            fw.write(przedmiot+";");
+            fw.write(ocena);
+            jPole.setText(" ");
+            fw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ProjektProgramu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jZapisanieActionPerformed
+
+    private void jWczytanieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jWczytanieActionPerformed
+        try{
+            Scanner sc = new Scanner(f);
+            String data = " ";
+            while(sc.hasNext()){
+                data += sc.nextLine()+"\n";
+            }
+            jPole.setText(data);
+            
+        }   catch(FileNotFoundException ex) {
+            Logger.getLogger(ProjektProgramu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jWczytanieActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,22 +270,25 @@ public class ProjektProgramu extends javax.swing.JFrame {
             }
         });
     }
+    private File f;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField jImie;
+    private javax.swing.JComboBox<String> jKlasa;
+    private javax.swing.JLabel jLImie;
+    private javax.swing.JLabel jLKlasa;
+    private javax.swing.JLabel jLNazwisko;
+    private javax.swing.JLabel jLOcena;
+    private javax.swing.JLabel jLPrzedmiot;
+    private javax.swing.JTextField jNazwisko;
+    private javax.swing.JSlider jOcena;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSlider jSlider2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextArea jPole;
+    private javax.swing.JComboBox<String> jPrzedmiot;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton jWczytanie;
+    private javax.swing.JLabel jWpisy;
+    private javax.swing.JButton jZapisanie;
     // End of variables declaration//GEN-END:variables
 }
